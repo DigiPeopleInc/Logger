@@ -4,7 +4,7 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
 
     defaultConfig {
-        applicationId "ru.digipeople.logger"
+        applicationId "ru.digipeople.loggersample"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
@@ -26,4 +26,6 @@ android {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
+    // Logger
+    implementation project(':logger')
 }
