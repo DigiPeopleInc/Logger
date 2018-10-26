@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -7,7 +9,7 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
     }
 
     buildTypes {
@@ -21,4 +23,47 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+publishing {
+    publications {
+        Production(MavenPublication) {
+            artifact("$buildDir/outputs/aar/logger-release.aar")
+            groupId 'ru.digipeople.logger'
+            artifactId 'logger'
+            version '1.0.0'
+
+            //The publication doesn't know about our dependencies, so we have to manually add them to the pom
+            pom.withXml {
+                //def dependenciesNode = asNode().appendNode('dependencies')
+                //Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
+                configurations.compile.allDependencies.each {
+                    if (it.name != 'unspecified') {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = project.findProperty("user")
+    key = project.findProperty('key')
+    publish = true
+    pkg {
+        repo = "maven" // Bintray repo name
+        name = project.name // Library module name
+        licenses = ["Apache-2.0"]
+        desc = "Logger implementation for Android"
+        vcsUrl = "https://github.com/DigiPeopleInc/Logger" //Repo url
+        version {
+            name = '1.0.0' // Bintray logical version name
+            vcsTag = '1.0.0'
+        }
+    }
+    publications = ['Production']
 }
