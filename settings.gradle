@@ -1,1 +1,1 @@
-include ':sample', ':logger'
+include ':sample', ':logger', ':logger_kotlin'

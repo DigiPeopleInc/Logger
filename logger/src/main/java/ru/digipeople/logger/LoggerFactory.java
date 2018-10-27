@@ -7,7 +7,6 @@ package ru.digipeople.logger;
  * @author Aleksandr Brazhkin
  */
 public class LoggerFactory {
-
     public static Logger getLogger(String name) {
         return new LogcatLogger(name);
     }
