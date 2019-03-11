@@ -22,12 +22,12 @@ Download
 ###### Java
 ```groovy
 dependencies {
-    implementation 'ru.digipeople.logger:logger:1.0.0'
+    implementation 'ru.digipeople.logger:logger:1.0.1'
 }
 ```
 ###### Kotlin
 ```groovy
 dependencies {
-    implementation 'ru.digipeople.logger:logger-kotlin:1.0.0'
+    implementation 'ru.digipeople.logger:logger-kotlin:1.0.1'
 }
 ```

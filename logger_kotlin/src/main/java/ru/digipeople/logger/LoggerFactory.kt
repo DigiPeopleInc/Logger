@@ -9,17 +9,22 @@ import kotlin.reflect.KClass
  * @author Aleksandr Brazhkin
  */
 object LoggerFactory {
+
+    var DEFAULT_FACTORY: ILoggerFactory = LogcatLoggerFactory()
+
     @JvmStatic
     fun getLogger(name: String): Logger {
-        return LogcatLogger(name)
+        return DEFAULT_FACTORY.getLogger(name)
     }
 
     @JvmStatic
     fun getLogger(clazz: Class<*>): Logger {
-        return getLogger(clazz.simpleName)
+        return DEFAULT_FACTORY.getLogger(clazz)
     }
 
+    @JvmStatic
     fun getLogger(kClass: KClass<*>): Logger {
-        return getLogger(kClass.java)
+        return DEFAULT_FACTORY.getLogger(kClass)
     }
+
 }

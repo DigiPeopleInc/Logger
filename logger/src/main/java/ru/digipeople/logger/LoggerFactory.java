@@ -7,11 +7,18 @@ package ru.digipeople.logger;
  * @author Aleksandr Brazhkin
  */
 public class LoggerFactory {
+
+    public static ILoggerFactory DEFAULT_FACTORY = new LogcatLoggerFactory();
+
+    private LoggerFactory() {
+
+    }
+
     public static Logger getLogger(String name) {
-        return new LogcatLogger(name);
+        return DEFAULT_FACTORY.getLogger(name);
     }
 
     public static Logger getLogger(Class<?> clazz) {
-        return getLogger(clazz.getSimpleName());
+        return DEFAULT_FACTORY.getLogger(clazz);
     }
 }
